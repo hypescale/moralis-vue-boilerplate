@@ -12,8 +12,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "core-js": "~3.17.3",
-    "moralis": "~0.0.44",
+    "core-js": "~3.20.0",
+    "moralis": "~0.0.183",
     "vue": "^3.0.0"
   },
   "devDependencies": {
