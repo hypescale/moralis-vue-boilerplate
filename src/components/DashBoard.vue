@@ -1,10 +1,10 @@
 <template>
   <div>{{ user }}</div>
   <button v-if="!isAuthenticated" @click="logIn">logIn</button>
-  <button v-if="isAuthenticated" @click="logOut">LogOut</button>
+  <button v-else @click="logOut">LogOut</button>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted, computed } from "vue";
 import Moralis from "moralis";
 
@@ -12,26 +12,23 @@ const serverUrl = import.meta.env.VITE_MORALIS_SERVER_URL;
 const appId = import.meta.env.VITE_MORALIS_APPLICATION_ID;
 Moralis.start({ serverUrl, appId });
 
-let user = ref({});
+const user = ref<Moralis.User<Moralis.Attributes> | void | null>(null);
+const isAuthenticated = computed<boolean>(() => user.value !== null);
 
 onMounted(() => {
-  user.value = Moralis.User.current();
+  if(!isAuthenticated.value) {
+    user.value = Moralis.User.current();
+  }
 });
-
-const isAuthenticated = computed(() => user.value);
 
 const logIn = async () => {
   if (!isAuthenticated.value) {
     user.value = await Moralis.authenticate({
       signingMessage: "Log in using Moralis",
     })
-      .then((user) => {
-        console.log("logged in user:", user);
-        console.log(user.get("ethAddress"));
-        return user;
-      })
+      .then((user) => user)
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }
   console.log("logged in user:", user.value);
