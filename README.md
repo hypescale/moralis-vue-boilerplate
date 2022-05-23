@@ -32,6 +32,11 @@ yarn build
 yarn lint
 ```
 
+## Sponsor
+If you think this is useful for you, I am happy if you support this project by a small donation
+SOL: FAyNvBBRttbrLiGtW1i1ovH1JC3LifFN15U2qNDgF9FT
+ETH: 0xFcb6912A30b79F9FF5fb1b3262A296De0fb2c0A2
+
 ## FAQ
 **Question:** What is Moralis?
 
